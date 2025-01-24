@@ -1,7 +1,10 @@
 from flask import Flask, request, redirect, url_for, render_template
 import csv
 import disasters_backend
+import os
 import new_case_backend
+
+googleMapsKey = os.environ.get('GOOGLE_MAPS_KEY')
 
 # Initialize Flask
 app = Flask(__name__)
@@ -13,7 +16,8 @@ def landing_page():
 
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    print(googleMapsKey)
+    return render_template('home.html', API_KEY = googleMapsKey)
 
 #### DISASTERS ####
 @app.route('/disasters')
