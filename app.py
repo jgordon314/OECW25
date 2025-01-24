@@ -64,7 +64,7 @@ def new_case():
         reader = csv.reader(file)
         for row in reader: 
             disaster_names.append(row[0])
-    return render_template('new_case.html')
+    return render_template('new_case.html', disaster_names=disaster_names)
 
 @app.route('/new_case/result', methods=['POST', 'GET'])
 def new_case_result():

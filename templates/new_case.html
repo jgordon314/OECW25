@@ -7,7 +7,11 @@
       <h1>New Case Submission</h1>
       <form action="new_case/result" method = "POST">      
         <label for="disaster" class="form-label">Disaster</label> 
-        <input name="inputDisaster" type="disaster" class="form-control" id="disaster"> 
+        <select name="inputDisaster" class="form-control" id="disaster">
+          {% for dis in disaster_names %}
+          <option>{{dis}}</option>
+          {% endfor %}
+        </select>
 
         <label for="time" class="form-label">Time</label> 
         <input name="inputTime" type="time" class="form-control" id="time"> 
