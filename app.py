@@ -41,10 +41,7 @@ def home():
 def disasters():
     with open(DISASTERS_CSV_PATH, mode = 'r', encoding="utf8") as file:
         reader = csv.reader(file)
-        rows = []
-        for row in reader: 
-            rows.append(row)
-        return render_template("disasters.html", csv=rows, disaster_categories = DISASTER_CATEGORIES)
+        return render_template("disasters.html", csv=reader, disaster_categories = DISASTER_CATEGORIES)
 
 @app.route('/disasters/result', methods=['POST', 'GET'])
 def disasters_result():
