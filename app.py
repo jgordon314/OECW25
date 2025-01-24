@@ -1,8 +1,11 @@
 from flask import Flask, request, redirect, url_for, render_template, send_file
 import csv
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 googleMapsKey = os.environ.get('GOOGLE_MAPS_KEY')
+print(googleMapsKey)
 
 DISASTERS_CSV_PATH = 'disasters.csv'
 CASES_CSV_PATH     = 'cases.csv'
@@ -19,7 +22,7 @@ def landing_page():
 @app.route('/home')
 def home():
     print(googleMapsKey)
-    return render_template('home.html', API_KEY = googleMapsKey)
+    return render_template('home.html', SOURCE = "https://www.google.com/maps/embed/v1/place?key="+googleMapsKey+"&q=Eiffel+Tower,Paris+France")
 
 #### DISASTERS ####
 @app.route('/disasters')
