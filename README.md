@@ -1,2 +1,9 @@
 # OECW25
-Submission from Panic At The Disco for OEC in Winter 25.
+Competitor names: Jack Gordon and Rayed Hamayun
+Team name: Panic! At The Disco 
+Project name: 
+
+# Compilation Instructions
+
+
+# Key Aspects of Code
