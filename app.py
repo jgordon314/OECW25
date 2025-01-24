@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect, url_for, render_template
+import csv
 import disasters_backend
 import new_case_backend
 
@@ -19,7 +20,12 @@ def home():
 #### FRIDGE TO MEAL ####
 @app.route('/disasters')
 def disasters():
-    return render_template('disasters.html')
+    with open("disasters.csv", mode = 'r', encoding="utf8") as file:
+        reader = csv.reader(file)
+        rows = []
+        for row in reader: 
+            rows.append(row)
+        return render_template("disasters.html", csv=rows)
 
 @app.route('/disasters/result', methods=['POST', 'GET'])
 def disasters_result():
