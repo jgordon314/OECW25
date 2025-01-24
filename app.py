@@ -39,6 +39,22 @@ def disasters_result():
 #### MOVIE TO RECOMMENDATION ####
 @app.route('/new_case')
 def new_case():
+    print("Showing new case")
+    return render_template('new_case.html')
+
+@app.route('/new_case/result', methods=['POST', 'GET'])
+def new_case_result():
+    print("Showing new case result")
+    if request.method == 'POST':
+        print("Submitting!")
+        form_data = dict(request.form)
+        row = []
+        print(form_data)
+        for value in form_data.values():
+            row.append(value)
+        with open('cases.csv','a') as file:
+            writer = csv.writer(file)
+            writer.writerow(row)
     return render_template('new_case.html')
 
 #### FRIDGE TO MEAL ####
@@ -64,4 +80,4 @@ def get_data_result():
 #     return ratings_data.head().to_html()
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

@@ -8,11 +8,20 @@
       <body>Something here.</body>
       <br></br>
         <form action="new_case/result" method = "POST">      
-            <textarea id = "inputbox" name = "new_case" rows="1"></textarea>
-            <div style = "display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
-              <input type = "submit" value = "Submit movies" style = "width: 19vw; height: 5vw; font-size: 2vw; margin-top: 15px;" />
-            </div>
-        </form>
+          <label for="disaster" class="form-label">Disaster</label> 
+          <input name="inputDisaster" type="disaster" class="form-control" id="disaster"> 
+
+          <label for="time" class="form-label">Time</label> 
+          <input name="inputTime" type="time" class="form-control" id="time"> 
+
+          <label for="latitude" class="form-label">Latitude</label> 
+          <input name="latitude" class="form-control" id="latitude"> 
+
+          <label for="longitude" class="form-label">Longitude</label> 
+          <input name="longitude" class="form-control" id="longitude"> 
+
+          <button type="submit" class="btn btn-primary">Submit</button> 
+      </form>
     </div>
   </main>
 </html>
