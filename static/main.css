@@ -1,0 +1,50 @@
+header {
+    height: 5vw;
+    background: #5555ff;
+    font-size: 4vw;
+    padding: 5px;   
+    display: flex; 
+    flex-direction: row;
+}
+
+footer {
+    height: 40px;
+    background: #5555ff;
+    font-size: 35px;
+    padding: 5px;   
+    display: flex; 
+    flex-direction: row;
+}
+
+a {
+    color: white;
+}
+
+html, body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0px;
+    background: #aaaaff;
+}
+
+#inputbox {
+    height: 40%;
+    width: 100%;
+    word-break: break-word;
+    font-size: 2vw
+}
+
+outer_text p {
+    font-size: 25px; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+}
+
+inner_text p {
+    font-size: 20px; 
+    padding-left: 10px; 
+    padding-right: 10px; 
+}
+
+div.image_text {
+    padding: 10px;
+}

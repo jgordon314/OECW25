@@ -1,0 +1,37 @@
+
+<link rel="stylesheet" href='/static/main.css' />
+<html>
+  {% include 'header.html' %}
+  <main>
+    <title>What Should I?</title>
+      <body>
+        <outer_text>
+          {% if inp == [] %}
+          <p>No valid movies provided. Try ensuring each movie title is on a separate line and spelled correctly, or reduce the number of movies input.</p>
+          {% else %}
+          <p>The movies we think you input are:</p>
+          {% endif %}
+        </outer_text>
+        <inner_text>
+          {% for movie in inp %}
+            <p> {{movie}} </p>
+          {% endfor %}
+          </div>
+        </inner_text>
+        <outer_text>
+          <p>Similar movies include:</p>
+        </outer_text>
+        <inner_text>
+          {% if result == [] %}
+            <p>No similar movies found.</p>
+          {% endif %}
+          {% for movie in result %}
+            <p> {{movie}} </p>
+          {% endfor %}
+        </inner_text>
+    </body>
+  </main>
+  {% if result != [] %}
+  <footer class="footer"></footer>
+  {% endif %}
+</html>
