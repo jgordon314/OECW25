@@ -20,17 +20,9 @@
           
           <label for="category" class="form-label">Category</label> 
           <select name="inputCategory" class="form-control" id="category">
-            <option value="Disease">Disease</option>
-            <option value="Earthquake">Earthquake</option>
-            <option value="Tsunami">Tsunami</option>
-            <option value="Wildfire">Wildfire</option>
-            <option value="Blizzard">Blizzard</option>
-            <option value="Avalanche">Avalanche</option>
-            <option value="Flood">Flood</option>
-            <option value="Heat Wave">Heat Wave</option>
-            <option value="Landslide">Landslide</option>
-            <option value="Tornado">Tornado</option>
-            <option value="Hurricane/Typhoon">Hurricane/Typhoon</option>
+            {% for dis in disaster_categories %}
+            <option>{{dis}}</option>
+            {% endfor %}
           </select>
 
           <button type="submit" class="btn btn-primary">Submit</button> 

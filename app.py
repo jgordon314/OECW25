@@ -10,6 +10,18 @@ print(googleMapsKey)
 DISASTERS_CSV_PATH = 'disasters.csv'
 CASES_CSV_PATH     = 'cases.csv'
 
+DISASTER_CATEGORIES=['Disease',
+                     'Earthquake',
+                     'Tsunami',
+                     'Wildfire',
+                     'Blizzard',
+                     'Avalanche',
+                     'Flood',
+                     'Heat Wave',
+                     'Landslide',
+                     'Tornado',
+                     'Hurricane/Typhoon'
+                    ]
 
 # Initialize Flask
 app = Flask(__name__)
@@ -32,7 +44,7 @@ def disasters():
         rows = []
         for row in reader: 
             rows.append(row)
-        return render_template("disasters.html", csv=rows)
+        return render_template("disasters.html", csv=rows, disaster_categories = DISASTER_CATEGORIES)
 
 @app.route('/disasters/result', methods=['POST', 'GET'])
 def disasters_result():
