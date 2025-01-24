@@ -21,14 +21,33 @@
         a pre-processed version of the GroupLens Research ml-latest dataset, a correlation of each input movie is found. These correlations
         contain how similar each input movie is to every single other movie in the database. These correlation tables are all taken
         and multiplied with each other to get the movies that are most similar to every input movie and is returned to the user.
-          <iframe
-            width="450"
-            height="250"
-            frameborder="0" style="border:0"
-            referrerpolicy="no-referrer-when-downgrade"
-            src=SOURCE
-            allowfullscreen>
-        </iframe>
+        <gmp-map
+          center="43.4142989,-124.2301242"
+          zoom="4"
+          map-id="DEMO_MAP_ID"
+          style="height: 400px"
+        >
+          <gmp-advanced-marker
+            position="37.4220656,-122.0840897"
+            title="Mountain View, CA"
+          ></gmp-advanced-marker>
+          <gmp-advanced-marker
+            position="47.648994,-122.3503845"
+            title="Seattle, WA"
+          ></gmp-advanced-marker>
+        </gmp-map>
+  
+        <!-- 
+          The `defer` attribute causes the script to execute after the full HTML
+          document has been parsed. For non-blocking uses, avoiding race conditions,
+          and consistent behavior across browsers, consider loading using Promises. See
+          https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+          for more information.
+          -->
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9u3IpaN-lh6dUNhTRN3gmMYPmyghIPxs&libraries=maps,marker&v=beta"
+          defer
+        ></script>
       </body>
     </div>
   </main>
