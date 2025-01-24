@@ -50,16 +50,20 @@ def disasters_result():
         row = []
         for value in form_data.values():
             row.append(value)
-        with open(DISASTERS_CSV_PATH,'a') as file:
+        with open(DISASTERS_CSV_PATH,'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(row)
-    return disasters()    
+    return render_template("disasters_result.html")
 
 
 #### NEW CASE ####
 @app.route('/new_case')
 def new_case():
-    print("Showing new case")
+    disaster_names = []
+    with open(DISASTERS_CSV_PATH, mode = 'r', encoding="utf8") as file:
+        reader = csv.reader(file)
+        for row in reader: 
+            disaster_names.append(row[0])
     return render_template('new_case.html')
 
 @app.route('/new_case/result', methods=['POST', 'GET'])
