@@ -13,14 +13,15 @@
     {% endfor %}
     </table>
     <div class="intro" style = "margin: 10px;">
-      <h1>Type your ingredients below.</h1>
-      <body>Please input each ingredient on a separate line.</body>
-      <br></br>
+      <h1>New disaster submission.</h1>
         <form action="disasters/result" method = "POST">      
-            <textarea id = "inputbox" name = "disasters" rows="1"></textarea>
-            <div style = "display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
-              <input type = "submit" value = "Submit ingredients" style = "width: 19vw; height: 5vw; font-size: 2vw; margin-top: 15px;" />
-            </div>
+          <label for="name" class="form-label">Name</label> 
+          <input name="inputName" type="name" class="form-control" id="name"> 
+          
+          <label for="category" class="form-label">Category</label> 
+          <input name="inputCategory" class="form-control" id="category"> 
+
+          <button type="submit" class="btn btn-primary">Submit</button> 
         </form>
     </div>
   </main>

@@ -28,10 +28,14 @@ def disasters():
 @app.route('/disasters/result', methods=['POST', 'GET'])
 def disasters_result():
     if request.method == 'POST':
-        form_data = request.form
-        return render_template('disasters_result.html', result = disasters_backend.find_meals(form_data))
-    else:
-        return disasters()    
+        form_data = dict(request.form)
+        row = []
+        for value in form_data.values():
+            row.append(value)
+        with open('disasters.csv','a') as file:
+            writer = csv.writer(file)
+            writer.writerow(row)
+    return disasters()    
 
 
 #### NEW CASE ####
@@ -50,7 +54,7 @@ def new_case_result():
         with open('cases.csv','a') as file:
             writer = csv.writer(file)
             writer.writerow(row)
-    return render_template('new_case.html')
+    return new_case()
 
 #### GET DATA ####
 @app.route('/get_data')
