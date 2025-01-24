@@ -77,14 +77,6 @@ def disasters_dl():
 @app.route("/download/cases")
 def cases_dl():
     return send_file(CASES_CSV_PATH, as_attachment=True)
-    
-@app.route('/get_data/result', methods=['POST', 'GET'])
-def get_data_result():
-    if request.method == 'POST':
-        form_data = request.form
-        return render_template('get_data_result.html', result = disasters_backend.find_meals(form_data))
-    else:
-        return get_data()    
 
 if __name__ == '__main__':
     app.run(debug=True)
