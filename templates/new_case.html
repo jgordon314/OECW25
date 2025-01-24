@@ -14,7 +14,7 @@
         </select>
 
         <label for="time" class="form-label">Time</label> 
-        <input name="inputTime" type="datetime-local" class="form-control" id="time"> 
+        <input name="inputTime" type="datetime-local" class="form-control" id="time" value = "{{ TIME }}"> 
 
         <label for="latitude" class="form-label">Latitude</label> 
         <input name="latitude" class="form-control" id="latitude"> 
@@ -26,4 +26,24 @@
       </form>
     </div>
   </main>
+  <script>
+    const latitudeInput = document.getElementById("latitude");
+    const longitudeInput = document.getElementById("longitude");
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        demo.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+    
+    function showPosition(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      latitudeInput.value = latitude;
+      longitudeInput.value = longitude;
+    }
+
+    window.addEventListener('load', getLocation);
+  </script>
 </html>

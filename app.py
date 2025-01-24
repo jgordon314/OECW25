@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, url_for, render_template, send_file
 import csv
 import os
 from dotenv import load_dotenv
+import time
 
 load_dotenv()
 googleMapsKey = os.environ.get('GOOGLE_MAPS_KEY')
@@ -80,7 +81,7 @@ def new_case():
         reader = csv.reader(file)
         for row in reader: 
             disaster_names.append(row[0])
-    return render_template('new_case.html', disaster_names=disaster_names)
+    return render_template('new_case.html', disaster_names=disaster_names, TIME = time.strftime("%Y-%m-%dT%H:%M"))
 
 @app.route('/new_case/result', methods=['POST', 'GET'])
 def new_case_result():
