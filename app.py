@@ -1,10 +1,14 @@
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, redirect, url_for, render_template, send_file
 import csv
 import disasters_backend
 import os
 import new_case_backend
 
 googleMapsKey = os.environ.get('GOOGLE_MAPS_KEY')
+
+DISASTERS_CSV_PATH = 'disasters.csv'
+CASES_CSV_PATH     = 'cases.csv'
+
 
 # Initialize Flask
 app = Flask(__name__)
@@ -22,7 +26,7 @@ def home():
 #### DISASTERS ####
 @app.route('/disasters')
 def disasters():
-    with open("disasters.csv", mode = 'r', encoding="utf8") as file:
+    with open(DISASTERS_CSV_PATH, mode = 'r', encoding="utf8") as file:
         reader = csv.reader(file)
         rows = []
         for row in reader: 
@@ -36,7 +40,7 @@ def disasters_result():
         row = []
         for value in form_data.values():
             row.append(value)
-        with open('disasters.csv','a') as file:
+        with open(DISASTERS_CSV_PATH,'a') as file:
             writer = csv.writer(file)
             writer.writerow(row)
     return disasters()    
@@ -55,7 +59,7 @@ def new_case_result():
         row = []
         for value in form_data.values():
             row.append(value)
-        with open('cases.csv','a') as file:
+        with open(CASES_CSV_PATH,'a') as file:
             writer = csv.writer(file)
             writer.writerow(row)
     return new_case()
@@ -65,6 +69,14 @@ def new_case_result():
 def get_data():
     return render_template('get_data.html')
 
+@app.route("/download/disasters")
+def disasters_dl():
+    return send_file(DISASTERS_CSV_PATH, as_attachment=True)
+
+@app.route("/download/cases")
+def cases_dl():
+    return send_file(CASES_CSV_PATH, as_attachment=True)
+    
 @app.route('/get_data/result', methods=['POST', 'GET'])
 def get_data_result():
     if request.method == 'POST':

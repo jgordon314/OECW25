@@ -7,12 +7,8 @@
       <h1>Getting data??.</h1>
       <body>Something here.</body>
       <br></br>
-        <form action="get_data/result" method = "POST">      
-            <textarea id = "inputbox" name = "data" rows="1"></textarea>
-            <div style = "display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
-              <input type = "submit" value = "Submit movies" style = "width: 19vw; height: 5vw; font-size: 2vw; margin-top: 15px;" />
-            </div>
-        </form>
+      <p> <a href="{{url_for('disasters_dl')}}">Disasters</a></p>
+      <p> <a href="{{url_for('cases_dl')}}">Cases</a></p>
     </div>
   </main>
 </html>
