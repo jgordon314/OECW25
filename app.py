@@ -3,6 +3,7 @@ import csv
 import os
 from dotenv import load_dotenv
 import time
+import pandas as pd
 
 load_dotenv()
 googleMapsKey = os.environ.get('GOOGLE_MAPS_KEY')
@@ -21,7 +22,8 @@ DISASTER_CATEGORIES=['Disease',
                      'Heat Wave',
                      'Landslide',
                      'Tornado',
-                     'Hurricane/Typhoon'
+                     'Hurricane/Typhoon',
+                     'Other'
                     ]
 
 # Initialize Flask
@@ -35,22 +37,22 @@ def landing_page():
 @app.route('/home')
 def home():
     case_info = []
-    with open(CASES_CSV_PATH, mode = 'r', encoding="utf8") as file:
-        reader = csv.reader(file)
-        counter = 0
-        for row in reader: 
-            try:
-                if (counter > 100):
-                    break
-                else: 
-                    single_case = []
-                    single_case.append(row[0])
-                    single_case.append(f"{row[2]},{row[3]}")
-                    case_info.append(single_case)
-                    counter += 1
-            except: 
-                pass
-    print(case_info)
+
+    # Read the CSV file into a dataframe
+    df = pd.read_csv(CASES_CSV_PATH, encoding="utf8")
+
+    # Sort dataframe by greatest (most recent) time to get 100 most recent pins
+    df = df.sort_values(by=df.columns[1], ascending=False)
+    df = df.head(100)
+    
+    # Get disaster information from dataframe
+    disaster_names = df.iloc[:, 0].astype(str).tolist()
+    disaster_latitudes = df.iloc[:, 2].astype(str).tolist()
+    disaster_longitudes = df.iloc[:, 3].astype(str).tolist()
+
+    # Combine information; this is to be turned into pins
+    case_info = [[disaster_names[i], f"{disaster_latitudes[i]},{disaster_longitudes[i]}"] for i in range(len(disaster_names))]
+
     return render_template('home.html', SOURCE="https://www.google.com/maps/embed/v1/place?key="+googleMapsKey+"&q=Eiffel+Tower,Paris+France", case_info=case_info)
 
 #### DISASTERS ####
