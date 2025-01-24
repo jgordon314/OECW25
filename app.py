@@ -1,8 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template, send_file
 import csv
-import disasters_backend
 import os
-import new_case_backend
 
 googleMapsKey = os.environ.get('GOOGLE_MAPS_KEY')
 
