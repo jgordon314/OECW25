@@ -33,8 +33,24 @@ def landing_page():
 
 @app.route('/home')
 def home():
-    print(googleMapsKey)
-    return render_template('home.html', SOURCE = "https://www.google.com/maps/embed/v1/place?key="+googleMapsKey+"&q=Eiffel+Tower,Paris+France")
+    case_info = []
+    with open(CASES_CSV_PATH, mode = 'r', encoding="utf8") as file:
+        reader = csv.reader(file)
+        counter = 0
+        for row in reader: 
+            try:
+                if (counter > 100):
+                    break
+                else: 
+                    single_case = []
+                    single_case.append(row[0])
+                    single_case.append(f"{row[2]},{row[3]}")
+                    case_info.append(single_case)
+                    counter += 1
+            except: 
+                pass
+    print(case_info)
+    return render_template('home.html', SOURCE="https://www.google.com/maps/embed/v1/place?key="+googleMapsKey+"&q=Eiffel+Tower,Paris+France", case_info=case_info)
 
 #### DISASTERS ####
 @app.route('/disasters')
@@ -73,10 +89,10 @@ def new_case_result():
         row = []
         for value in form_data.values():
             row.append(value)
-        with open(CASES_CSV_PATH,'a') as file:
+        with open(CASES_CSV_PATH,'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(row)
-    return new_case()
+    return render_template('new_case_result.html')
 
 #### GET DATA ####
 @app.route('/get_data')

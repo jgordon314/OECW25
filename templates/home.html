@@ -5,36 +5,19 @@
     <title>Disaster Tracker O3</title>
     <!-- <div class="intro" style="padding-left: 10px; display: flex; flex-direction: row; flex-wrap: wrap; font-size: 3vw;"> -->
     <div class="intro" style = "margin: 10px;">
-      <h1>What is this?</h1>
-      <body>
-        This website provides suggestions based on what you already have or like. </br>
-        Currently, we can give you food and movie suggestions. </br>
-        To see food suggestions, select Fridge. To see movie suggestions, select Cinema. </br>
-      </body>
-      </br>
-      <h1>Technical Description</h1>
-      <body>
-        Fridge takes in a list of ingredients and queries the Edamam API with the list of ingredients.
-        Edamam provides recipes alongside the images and links to them, which are taken and displayed. </br>
-        </br>
-        Cinema takes in a list of movies and finds the matching movie title using difflib. Using a pandas database containing a
-        a pre-processed version of the GroupLens Research ml-latest dataset, a correlation of each input movie is found. These correlations
-        contain how similar each input movie is to every single other movie in the database. These correlation tables are all taken
-        and multiplied with each other to get the movies that are most similar to every input movie and is returned to the user.
+      <h1>Cases Near You</h1>
         <gmp-map
           center="43.4142989,-124.2301242"
           zoom="4"
           map-id="DEMO_MAP_ID"
           style="height: 400px"
         >
+          {% for dis in case_info %}
           <gmp-advanced-marker
-            position="37.4220656,-122.0840897"
-            title="Mountain View, CA"
+            position="{{ dis[1] }}"
+            title="{{ dis[0] }}"
           ></gmp-advanced-marker>
-          <gmp-advanced-marker
-            position="47.648994,-122.3503845"
-            title="Seattle, WA"
-          ></gmp-advanced-marker>
+          {% endfor %}
         </gmp-map>
   
         <!-- 
