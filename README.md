@@ -19,6 +19,14 @@ On your preferred web browser, open the URL printed in terminal (generally, this
 <br>
 You can now navigate the website. 
 
+# How to use
+View nearby declarations of disasters in the Home tab.
+
+Create new kinds of disasters in the Disasters tab.
+
+Report on a disaster using the New Case tab.
+
+Download all the data in a csv format in the Get Data tab.
 
 # Key Aspects of Code
 This is a Flask website that relies on website pages either reading CSV files or writing CSV files. 
