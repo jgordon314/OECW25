@@ -33,5 +33,11 @@
         ></script>
       </body>
     </div>
+    <div class="intro" style = "margin: 10px;">
+      {% for dis in case_info %}
+      <b>  Case of {{ dis[0] }} at time {{ dis[2] }} at coordinates {{ dis[1] }}.</b>
+      <br>
+      {% endfor %}
+    </div>
   </main>
 </html>

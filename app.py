@@ -47,12 +47,13 @@ def home():
     
     # Get disaster information from dataframe
     disaster_names = df.iloc[:, 0].astype(str).tolist()
+    disaster_times = df.iloc[:, 1].astype(str).tolist()
     disaster_latitudes = df.iloc[:, 2].astype(str).tolist()
     disaster_longitudes = df.iloc[:, 3].astype(str).tolist()
 
     # Combine information; this is to be turned into pins
-    case_info = [[disaster_names[i], f"{disaster_latitudes[i]},{disaster_longitudes[i]}"] for i in range(len(disaster_names))]
-
+    case_info = [[disaster_names[i], f"{disaster_latitudes[i]},{disaster_longitudes[i]}", disaster_times[i]] for i in range(len(disaster_names))]
+    
     return render_template('home.html', API_KEY=googleMapsKey, case_info=case_info)
 
 #### DISASTERS ####
