@@ -3,54 +3,82 @@
   {% include 'header.html' %}
   <main>
     <title>Disaster Tracker O3</title>
-    <div class="intro" style = "margin: 10px;">
+    <div class="intro" style="margin: 10px;">
       <h1>New Case Submission</h1>
-      <form action="new_case/result" method = "POST">      
-        <label for="disaster" class="form-label">Disaster</label> 
+      <form action="new_case/result" method="POST">
+        <label for="disaster" class="form-label">Disaster</label>
         <select name="inputDisaster" class="form-control" id="disaster">
           {% for dis in disaster_names %}
           <option>{{dis}}</option>
           {% endfor %}
         </select>
 
-        <label for="time" class="form-label">Time</label> 
-        <input name="inputTime" type="datetime-local" class="form-control" id="time" value = "{{ TIME }}"> 
+        <label for="time" class="form-label">Time</label>
+        <input name="inputTime" type="datetime-local" class="form-control" id="time" value="{{ TIME }}">
 
-        <label for="latitude" class="form-label">Latitude</label> 
-        <input name="latitude" class="form-control" id="latitude"> 
+        <label for="latitude" class="form-label">Latitude</label>
+        <input name="latitude" class="form-control" id="latitude">
 
-        <label for="longitude" class="form-label">Longitude</label> 
-        <input name="longitude" class="form-control" id="longitude"> 
-        <gmp-map
-        center="43.4142989,-124.2301242"
-        zoom="4"
-        map-id="DEMO_MAP_ID"
-        style="height: 400px"
-      >
-      </gmp-map>
-        <button type="submit" class="btn btn-primary">Submit</button> 
-        
+        <label for="longitude" class="form-label">Longitude</label>
+        <input name="longitude" class="form-control" id="longitude">
+
+        <div id="map" style="height: 400px;"></div>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </main>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{ API_KEY }}&callback=initMap" async defer></script>
   <script>
-    const latitudeInput = document.getElementById("latitude");
-    const longitudeInput = document.getElementById("longitude");
-    function getLocation() {
+    function initMap() {
+      const defaultLat = parseFloat(document.getElementById('latitude').value);
+      const defaultLng = parseFloat(document.getElementById('longitude').value);
+
+      const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: { lat: defaultLat, lng: defaultLng }
+      });
+
+      const marker = new google.maps.Marker({
+        position: map.getCenter(),
+        map: map
+      });
+
+      map.addListener('center_changed', () => {
+        const center = map.getCenter();
+        marker.setPosition(center);
+        document.getElementById('latitude').value = center.lat();
+        document.getElementById('longitude').value = center.lng();
+      });
+
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+
+            map.setCenter(pos);
+            marker.setPosition(pos);
+
+            document.getElementById('latitude').value = pos.lat;
+            document.getElementById('longitude').value = pos.lng;
+          },
+          () => {
+            handleLocationError(true, map.getCenter());
+          }
+        );
       } else {
-        demo.innerHTML = "Geolocation is not supported by this browser.";
+        handleLocationError(false, map.getCenter());
+      }
+
+      function handleLocationError(browserHasGeolocation, pos) {
+        console.log(
+          browserHasGeolocation
+            ? "Error: The Geolocation service failed."
+            : "Error: Your browser doesn't support geolocation."
+        );
       }
     }
-    
-    function showPosition(position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      latitudeInput.value = latitude;
-      longitudeInput.value = longitude;
-    }
-
-    window.addEventListener('load', getLocation);
   </script>
 </html>
