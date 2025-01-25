@@ -74,6 +74,35 @@ def disasters_result():
             writer.writerow(row)
     return render_template("disasters_result.html")
 
+@app.route('/disasters/edit')
+def disasters_edit():
+    disaster_names = []
+    with open(DISASTERS_CSV_PATH, mode = 'r', encoding="utf8") as file:
+        reader = csv.reader(file)
+        for row in reader: 
+            disaster_names.append(row[0])
+    with open(DISASTERS_CSV_PATH, mode = 'r', encoding="utf8") as file:
+        reader = csv.reader(file)
+        return render_template('disasters_edit.html', disaster_names=disaster_names, disaster_categories=DISASTER_CATEGORIES)
+
+@app.route('/disasters/edit/result', methods=['POST', 'GET'])
+def disasters_edit_result():
+    if request.method == 'POST':
+        form_data = dict(request.form)
+        old_name = form_data['inputDisaster']
+        new_name = form_data['inputName']
+        new_category = form_data['inputCategory']
+
+        # Replace name and category in disasters CSV 
+        df_disasters = pd.read_csv(DISASTERS_CSV_PATH, encoding="utf8")
+        df_disasters.loc[df_disasters.iloc[:, 0] == old_name] = [new_name, new_category]
+        df_disasters.to_csv(DISASTERS_CSV_PATH, index=False, encoding="utf8")
+
+        # Replace name in cases CSV 
+        df_cases = pd.read_csv(CASES_CSV_PATH, encoding="utf8")
+        df_cases.iloc[:, 0] = df_cases.iloc[:, 0].replace(old_name, new_name)
+        df_cases.to_csv(CASES_CSV_PATH, index=False, encoding="utf8")
+    return render_template("disasters_edit_result.html")
 
 #### NEW CASE ####
 @app.route('/new_case')

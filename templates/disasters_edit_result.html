@@ -1,0 +1,19 @@
+<link rel="stylesheet" href='/static/main.css' />
+<html>
+  {% include 'header.html' %}
+  <main>
+    <title>Disaster Tracker O3</title>
+    <!-- <div class="intro" style="padding-left: 10px; display: flex; flex-direction: row; flex-wrap: wrap; font-size: 3vw;"> -->
+    <div class="intro" style = "margin: 10px;">
+    <h1>Disaster edited.<h1>
+    <table id="disaster_table">
+    {% for row in csv %}
+      <tr>
+      {% for col in row %}
+      <td>{{ col }}</td>
+      {% endfor %}
+      </tr>
+    {% endfor %}
+    </div>
+  </main>
+</html>

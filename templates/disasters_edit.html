@@ -4,12 +4,20 @@
   <main>
     <title>Disaster Tracker O3</title>
     <div class="intro" style = "margin: 10px;">
-      <h1>New Disaster Submission</h1>
-        <form action="disasters/result" method = "POST">      
-          <label for="name" class="form-label">Name</label> 
+      <h1>Editting Disaster</h1>
+        <form action="edit/result" method = "POST">      
+        
+          <label for="disaster" class="form-label">Disaster</label> 
+          <select name="inputDisaster" class="form-control" id="disaster">
+            {% for dis in disaster_names %}
+            <option>{{dis}}</option>
+            {% endfor %}
+          </select>
+
+          <label for="name" class="form-label">New Name</label> 
           <input name="inputName" type="name" class="form-control" id="name"> 
           
-          <label for="category" class="form-label">Category</label> 
+          <label for="category" class="form-label">New Category</label> 
           <select name="inputCategory" class="form-control" id="category">
             {% for dis in disaster_categories %}
             <option>{{dis}}</option>
@@ -18,19 +26,6 @@
 
           <button type="submit" class="btn btn-primary">Submit</button> 
         </form>
-    </div>
-    <div class="intro" style = "margin: 10px;">
-      <a href='{{ url_for('disasters_edit') }}'>Edit a Disaster</a>
-      <h1>Disasters</h1>
-      <table id="disaster_table">
-      {% for row in csv %}
-        <tr>
-        {% for col in row %}
-        <td>{{ col }}</td>
-        {% endfor %}
-        </tr>
-      {% endfor %}
-    </table>
     </div>
   </main>
 </html>
