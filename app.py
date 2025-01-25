@@ -53,7 +53,7 @@ def home():
     # Combine information; this is to be turned into pins
     case_info = [[disaster_names[i], f"{disaster_latitudes[i]},{disaster_longitudes[i]}"] for i in range(len(disaster_names))]
 
-    return render_template('home.html', SOURCE="https://www.google.com/maps/embed/v1/place?key="+googleMapsKey+"&q=Eiffel+Tower,Paris+France", case_info=case_info)
+    return render_template('home.html', API_KEY=googleMapsKey, case_info=case_info)
 
 #### DISASTERS ####
 @app.route('/disasters')
